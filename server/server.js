@@ -14,7 +14,20 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/whoami", (req, res) => {
-	res.send("This page is being worked on");
+	// WORK OUT WHERE TO GET INFO, MAYBE FROM HEADERS
+	var userAgent = req.headers["user-agent"];
+	var osArr = userAgent.split(/[()]/);
+	var os = osArr[1];
+
+	var allLangs = req.headers["accept-language"].split(/[,]/);
+	var lang = allLangs[0];
+
+	var ip = req.ip;
+
+	var json = {"software": os, "language": lang, "ipaddress": ip};
+
+	res.json(json);
+
 });
 
 
